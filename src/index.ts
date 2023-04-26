@@ -1,7 +1,8 @@
 import axios, { AxiosError } from "axios";
-import { randomBytes } from "crypto";
 import * as dotenv from "dotenv";
 dotenv.config();
+
+import {generateRandHexEncodedNamespaceID, generateRandMessage} from "./dummy";
 
 const BASE_URL = `http://${process.env.BASE_URL}:26658`;
 const AUTH_TOKEN = process.env.AUTH_TOKEN;
@@ -73,16 +74,7 @@ export async function submitPFB(
 	return result;
 }
 
-function generateRandHexEncodedNamespaceID(): string {
-	const nID = randomBytes(8);
-	return nID.toString("base64");
-}
 
-function generateRandMessage(): string {
-	const lenMsg = Math.floor(Math.random() * 100);
-	const msg = randomBytes(lenMsg);
-	return msg.toString("base64");
-}
 
 async function testSubmitPFB() {
 	const result = await submitPFB(
